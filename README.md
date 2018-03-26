@@ -2,7 +2,7 @@ _A set of utilities for building UIs with React_
 
 [Demo](https://jsfiddle.net/qrtzgju2/5/)
 
-v1.1.0
+v1.2.0
 
 ```
 npm i 0ui
