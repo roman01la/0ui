@@ -1,9 +1,11 @@
 {
   "name": "0ui",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A set of utilities for building UIs with React",
   "scripts": {
-    "build:example": "webpack --config ./example/webpack.config.js --mode=production"
+    "build:example":
+      "webpack --config ./example/webpack.config.js --mode=development --watch",
+    "build": "webpack --config webpack.config.js --mode=production"
   },
   "author": "Roman Liutikov",
   "license": "MIT",
@@ -16,8 +18,8 @@
     "babel-loader": "^7.1.4",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
+    "react-dom": "^16.2.0",
     "webpack": "^4.2.0",
-    "webpack-cli": "^2.0.13",
-    "react-dom": "^16.2.0"
+    "webpack-cli": "^2.0.13"
   }
 }

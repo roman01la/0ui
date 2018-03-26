@@ -1,6 +1,18 @@
 _A set of utilities for building UIs with React_
 
+v1.1.0
+
+```
+npm i 0ui
+```
+
 See an example of how everything is used together in `example/src/index.js`
+
+## UMD build
+
+```html
+<script src="https://unpkg.com/0ui/dist/0ui.umd.js"></script>
+```
 
 ## core lib
 
