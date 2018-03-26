@@ -31,14 +31,19 @@ import { match } from "0ui/lib/core";
 
 match("loading")({
   loading: () => console.log("Loading"),
-  error: () => console.log("Error")
+  error: () => console.log("Error"),
+  else: () => console.log("no matching clause")
 });
 // "Error"
 ```
 
+_Why? Because switch/case is too verbose 🤷‍_
+
 ## imtbl
 
 Immutable style data manipulation for plain JavaScript objects, see [imtbl](https://github.com/roman01la/imtbl) lib.
+
+_Why? Read the [readme](https://github.com/roman01la/imtbl)_
 
 ## State
 
@@ -59,6 +64,8 @@ state.addWatch("key", (key, state, prevVal, nextVal) => {
 
 state.swap(val => val + 1); // 0 1
 ```
+
+_Why? Because explicit reactive state is useful everywhere, not just in React_
 
 ## Derived state
 
@@ -92,6 +99,8 @@ bucket.swap(removeFirstItem);
 bucketPrice.state; // 178.2
 ```
 
+_Why? Because sometimes you want reactive materialized views_
+
 ## Multimethod
 
 `lib/multimethod.js`
@@ -108,6 +117,9 @@ const toJSON = MultiMethod.create(v => {
     return typeof v;
   }
 });
+
+// called if there's no match for dispatched value
+toJSON.addMethod("default", v => JSON.stringify(v));
 
 toJSON.addMethod("string", v => JSON.stringify(v));
 
@@ -130,6 +142,8 @@ toJSON.dispatch({
 });
 // {"items":[1, "two"]}
 ```
+
+_Why? Because it's a better abstraction and less annoying than switch/case_
 
 ## UI
 
@@ -158,3 +172,5 @@ const Counter = createComponent({
   }
 });
 ```
+
+_Why? Because I hate JS classes and like having multiple decoupled states in a component_
