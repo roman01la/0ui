@@ -1,5 +1,7 @@
 _A set of utilities for building UIs with React_
 
+[Demo](https://jsfiddle.net/qrtzgju2/5/)
+
 v1.1.0
 
 ```
