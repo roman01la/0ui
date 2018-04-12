@@ -1,12 +1,18 @@
-import React from "react";
-import { render } from "react-dom";
+function _objectWithoutProperties(obj, keys) {
+  var target = {};
+  for (var i in obj) {
+    if (keys.indexOf(i) >= 0) continue;
+    if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;
+    target[i] = obj[i];
+  }
+  return target;
+}
 
-import { assoc } from "imtbl";
-
-import State from "../../lib/state";
-import MultiMethod from "../../lib/multimethod";
-import { createComponent } from "../../lib/ui";
-import { match, withPreventDefault, withStyles } from "../../lib/core";
+const { render } = window.ReactDOM;
+const { State, MultiMethod, ui, core, imtbl } = window.lib0ui;
+const { createComponent } = ui;
+const { match, withPreventDefault, withStyles } = core;
+const { assoc } = imtbl;
 
 // global state
 const repos = State.create({
@@ -71,24 +77,32 @@ const styles = {
 };
 
 // stateless components
-const InputField = ({ value, onChange, autoFocus }) => (
-  <div>
-    <input
-      style={styles.input}
-      value={value}
-      onChange={e => onChange(e.target.value)}
-      autoFocus
-    />
-  </div>
-);
+const InputField = ({ value, onChange, autoFocus }) =>
+  React.createElement(
+    "div",
+    null,
+    React.createElement("input", {
+      style: styles.input,
+      value: value,
+      onChange: e => onChange(e.target.value),
+      autoFocus: true
+    })
+  );
 
-const Button = ({ children, onPress, ...props }) => (
-  <div>
-    <button style={withStyles(props)(styles.button)} onClick={onPress}>
-      {children}
-    </button>
-  </div>
-);
+const Button = _ref => {
+  let { children, onPress } = _ref,
+    props = _objectWithoutProperties(_ref, ["children", "onPress"]);
+
+  return React.createElement(
+    "div",
+    null,
+    React.createElement(
+      "button",
+      { style: withStyles(props)(styles.button), onClick: onPress },
+      children
+    )
+  );
+};
 
 // stateful component
 const ReposList = createComponent({
@@ -98,9 +112,14 @@ const ReposList = createComponent({
   },
   renderState({ state, error, items }) {
     return match(state)({
-      initial: () => (
-        <ul>{items.map(({ name }) => <li key={name}>{name}</li>)}</ul>
-      ),
+      initial: () =>
+        React.createElement(
+          "ul",
+          null,
+          items.map(({ name }) =>
+            React.createElement("li", { key: name }, name)
+          )
+        ),
       loading: () => "Loading...",
       error: () => error.message
     });
@@ -109,24 +128,26 @@ const ReposList = createComponent({
     const { items, state, error } = repos.state;
     const uname = repoName.state;
 
-    return (
-      <div style={styles.wrapper}>
-        <form
-          onSubmit={withPreventDefault(() =>
+    return React.createElement(
+      "div",
+      { style: styles.wrapper },
+      React.createElement(
+        "form",
+        {
+          onSubmit: withPreventDefault(() =>
             control.dispatch("fetch-repos", uname)
-          )}
-        >
-          <InputField
-            value={uname}
-            onChange={value => repoName.reset(value)}
-            autoFocus
-          />
-          <Button my={4}>fetch repos</Button>
-        </form>
-        {this.renderState({ state, error, items })}
-      </div>
+          )
+        },
+        React.createElement(InputField, {
+          value: uname,
+          onChange: value => repoName.reset(value),
+          autoFocus: true
+        }),
+        React.createElement(Button, { my: 4 }, "fetch repos")
+      ),
+      this.renderState({ state, error, items })
     );
   }
 });
 
-render(<ReposList />, document.getElementById("root"));
+render(React.createElement(ReposList, null), document.getElementById("root"));
