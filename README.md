@@ -1,6 +1,6 @@
 _A set of utilities for building UIs with React_
 
-[Demo](https://jsfiddle.net/qrtzgju2/5/)
+[Demo at https://roman01la.github.io/0ui/](https://roman01la.github.io/0ui/)
 
 v1.2.0
 
